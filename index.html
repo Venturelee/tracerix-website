@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRACERIX | Enterprise GPS Fleet Intelligence & IoT Hardware</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-blue: #00AEEF;
+            --deep-black: #000000;
+            --surface: #0A0A0A;
+            --line-color: rgba(255, 255, 255, 0.18);
+            --text-high: #FFFFFF;
+            --text-med: #D1D1D1;
+            --text-low: #888888;
+        }
+
+        /* 鼠标恢复正常样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
+        
+        /* 链接和按钮自动变为手型指针 */
+        a, button, .btn, .f-box, .ind-card { cursor: pointer; }
+
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: var(--deep-black); 
+            color: var(--text-high); 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            line-height: 1.6; 
+        }
+
+        /* 科技背景：精细点阵 */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle at 1px 1px, rgba(0, 174, 239, 0.12) 1px, transparent 0);
+            background-size: 35px 35px; z-index: -1;
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed; width: 100%; top: 0; display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 6%; z-index: 1000; border-bottom: 1px solid var(--line-color);
+            backdrop-filter: blur(20px); background: rgba(0, 0, 0, 0.92);
+        }
+        .logo-text { 
+            font-family: 'Syncopate', sans-serif; font-weight: 700; font-size: 24px; 
+            color: var(--neon-blue); letter-spacing: 2px; 
+            text-shadow: 0 0 10px rgba(0, 174, 239, 0.5);
+        }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { 
+            color: var(--text-high); text-decoration: none; font-family: 'Syncopate', sans-serif; 
+            font-size: 11px; font-weight: 700; text-transform: uppercase; 
+            letter-spacing: 2px; opacity: 0.8; transition: 0.3s; 
+        }
+        .nav-links a:hover { opacity: 1; color: var(--neon-blue); text-shadow: 0 0 8px var(--neon-blue); }
+
+        /* 通用布局 */
+        section { padding: 120px 10%; border-bottom: 1px solid var(--line-color); }
+        .tag { color: var(--neon-blue); font-size: 11px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 25px; display: block; }
+        h2 { font-family: 'Syncopate', sans-serif; font-size: 40px; margin-bottom: 30px; line-height: 1.1; }
+        p.main-desc { max-width: 800px; font-size: 18px; color: var(--text-med); margin-bottom: 50px; font-weight: 300; }
+
+        /* Hero Section */
+        .hero { 
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; 
+            background: radial-gradient(circle at 80% 50%, rgba(0, 174, 239, 0.12), transparent 50%); 
+        }
+        .hero h1 { font-family: 'Syncopate', sans-serif; font-size: clamp(40px, 8vw, 85px); line-height: 0.95; margin-bottom: 30px; }
+        .hero h1 span { color: var(--neon-blue); }
+
+        /* 功能矩阵：网格布局 */
+        .feature-matrix { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+            gap: 1px; background: var(--line-color); border: 1px solid var(--line-color); 
+        }
+        .f-box { background: var(--deep-black); padding: 60px 40px; transition: all 0.4s ease; }
+        .f-box:hover { background: #080808; transform: scale(1.02); z-index: 10; }
+        .f-box i { font-size: 32px; color: var(--neon-blue); margin-bottom: 30px; filter: drop-shadow(0 0 10px var(--neon-blue)); }
+        .f-box h3 { font-family: 'Syncopate'; font-size: 14px; margin-bottom: 15px; letter-spacing: 1px; color: #FFF; }
+        .f-box p { color: var(--text-med); font-size: 14px; line-height: 1.8; }
+
+        /* 核心数据展示 */
+        .stats-bar { 
+            display: flex; justify-content: space-around; padding: 70px 0; 
+            border-bottom: 1px solid var(--line-color); text-align: center; 
+            background: rgba(255,255,255,0.02);
+        }
+        .stat-n { font-family: 'Syncopate'; font-size: 36px; color: var(--neon-blue); font-weight: 700; }
+        .stat-l { font-size: 11px; color: var(--text-low); text-transform: uppercase; letter-spacing: 3px; margin-top: 12px; }
+
+        /* 硬件展示区 */
+        .hardware-flex { display: flex; align-items: center; gap: 80px; flex-wrap: wrap; }
+        .hw-img { flex: 1; min-width: 300px; text-align: center; }
+        .hw-img img { width: 320px; filter: drop-shadow(0 0 40px rgba(0, 174, 239, 0.45)); }
+        .hw-info { flex: 1; }
+
+        /* 按钮设计 */
+        .btn { 
+            padding: 22px 50px; font-family: 'Syncopate'; font-size: 13px; font-weight: 700; 
+            text-decoration: none; display: inline-block; transition: 0.4s; letter-spacing: 2px; 
+        }
+        .btn-primary { border: 1px solid var(--neon-blue); color: var(--neon-blue); background: transparent; }
+        .btn-primary:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 40px var(--neon-blue); }
+
+        footer { padding: 80px 10%; text-align: center; font-size: 11px; color: var(--text-low); letter-spacing: 6px; }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .feature-matrix { grid-template-columns: 1fr; }
+            .hardware-flex { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 48px; }
+            .stats-bar { flex-wrap: wrap; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-text">
+    <div class="logo-text">TRACERIX</div>
+</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#hardware">Hardware</a>
+            <a href="#systems">Intelligence</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <span class="tag">// GLOBAL_INFRASTRUCTURE_ACTIVE</span>
+        <h1>TOTAL<br><span>VISIBILITY.</span></h1>
+        <p class="main-desc">Tracerix provides the world's most reliable GPS tracking ecosystem. We specialize in high-precision hardware and decentralized cloud platforms for enterprise-scale fleet management.</p>
+        <div>
+            <a href="#contact" class="btn btn-primary">GET STARTED</a>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div><p class="stat-n">99.99%</p><p class="stat-l">SIGNAL UPTIME</p></div>
+        <div><p class="stat-n">< 0.5M</p><p class="stat-l">GPS PRECISION</p></div>
+        <div><p class="stat-n">IP69K</p><p class="stat-l">HARDENED RATING</p></div>
+        <div><p class="stat-n">AES-256</p><p class="stat-l">DATA SECURITY</p></div>
+    </div>
+
+    <section id="features">
+        <span class="tag">[ ENTERPRISE FEATURES ]</span>
+        <h2>COMMAND &<br>CONTROL</h2>
+        <div class="feature-matrix">
+            <div class="f-box">
+                <i class="fa-solid fa-satellite"></i>
+                <h3>Real-Time Tracking</h3>
+                <p>Live updates with sub-second latency. Experience fluid asset movement on industrial-grade vector maps.</p>
+            </div>
+            <div class="f-box">
+                <i class="fa-solid fa-vector-square"></i>
+                <h3>Polygon Geofencing</h3>
+                <p>Set complex boundary alerts. Receive instant notifications via SMS, Email, or API Webhooks when assets move.</p>
+            </div>
+            <div class="f-box">
+                <i class="fa-solid fa-database"></i>
+                <h3>Data Archive</h3>
+                <p>Retrieve 180 days of granular movement data. Analyze fuel consumption, idle time, and route efficiency.</p>
+            </div>
+            <div class="f-box">
+                <i class="fa-solid fa-microchip"></i>
+                <h3>OTA Updates</h3>
+                <p>Remotely update hardware firmware and sensor configurations without ever needing physical access to the unit.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="hardware">
+        <div class="hardware-flex">
+            <div class="hw-img">
+                <img src="tracerix_logo_v1原版.jpg" alt="Tracerix Hardware Unit">
+            </div>
+            <div class="hw-info">
+                <span class="tag">[ CORE HARDWARE ]</span>
+                <h2>TRX-UNIT v4.02</h2>
+                <p class="main-desc">The backbone of your IoT network. Built to withstand -40°C to +85°C, our v4 hardware is the gold standard for durability and precision.</p>
+                <ul style="list-style:none; color:var(--text-low); font-size: 15px; margin-bottom: 40px; line-height: 2.2;">
+                    <li><i class="fa-solid fa-chevron-right" style="color:var(--neon-blue); margin-right: 15px; font-size: 12px;"></i> GLOBAL NB-IOT / LTE-M CONNECTIVITY</li>
+                    <li><i class="fa-solid fa-chevron-right" style="color:var(--neon-blue); margin-right: 15px; font-size: 12px;"></i> INTEGRATED SATELLITE FAILOVER ENGINE</li>
+                    <li><i class="fa-solid fa-chevron-right" style="color:var(--neon-blue); margin-right: 15px; font-size: 12px;"></i> 9V-90V WIDE VOLTAGE COMPATIBILITY</li>
+                    <li><i class="fa-solid fa-chevron-right" style="color:var(--neon-blue); margin-right: 15px; font-size: 12px;"></i> BUILT-IN 6-AXIS GYROSCOPE & ACCELEROMETER</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary">DOWNLOAD SPEC SHEET</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="text-align: center; border-bottom: none; background: linear-gradient(to bottom, #000, #050505);">
+        <h2 style="font-size: clamp(30px, 6vw, 55px);">READY TO SCALE?</h2>
+        <p class="main-desc" style="margin: 0 auto 50px;">Contact our engineering team today for specialized B2B pricing and global deployment support.</p>
+        <a href="mailto:sales@tracerix.com" class="btn btn-primary" style="background:var(--neon-blue); color:#000;">CONNECT WITH EXPERTS</a>
+    </section>
+
+    <footer>
+        <p>TRACERIX GLOBAL SYSTEMS // SECURED BY END-TO-END ENCRYPTION // EST 2026</p>
+    </footer>
+
+</body>
+</html>
